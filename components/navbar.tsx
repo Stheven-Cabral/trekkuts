@@ -6,22 +6,26 @@ let menuList: string[];
 menuList = ['about', 'services', 'shop', 'schedule'];
 
 const Navbar = () => {
+  const [collapsed, setCollapse] = React.useState(false);
+
+  const toggleClick = () => { }
+
   return (
-    <div>
-      <div className="flex justify-between bg-black h-20">
-        <div className="flex text-white items-center ml-5">
-          <p>Trek</p><ScissorsIcon /><p>uts</p>
+    <div className="fixed w-full">
+      <div className="flex justify-between bg-black h-24">
+        <div className="flex text-white items-center ml-5 font-head text-4xl xl:text-5xl">
+          <p className="mr-1">Trek</p><ScissorsIcon /><p>uts</p>
         </div>
         <div className="flex items-center mr-5">
-          <NavbarToggle />
+          <NavbarToggle onClick={() => setCollapse(!collapsed)} />
         </div>
       </div>
-      <div className="bg-black xl:hidden">
-        <ul className="flex flex-col items-center text-white">
+      <div className={`bg-black xl:hidden ${collapsed ? 'block' : 'hidden'}`}>
+        <ul className="flex flex-col items-center text-white py-4">
           {
             menuList.map((listItem, index) => {
               return (
-                <li key={index} className="mx-2 mt-2 mb-5 text-3xl">{listItem}</li>
+                <li key={index} className="mx-2 my-5 text-3xl font-head">{listItem}</li>
               )
             })
           }

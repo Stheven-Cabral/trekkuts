@@ -6,6 +6,10 @@ module.exports = {
   },
   variants: {
     extend: {},
+    fontFamily: {
+      head: ['Staatliches', 'cursive'],
+      body: ['Raleway', 'sans-serif']
+    }
   },
   plugins: [],
 }
