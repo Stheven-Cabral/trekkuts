@@ -24,7 +24,12 @@ const NavLink = ({ href, listItem, menuItemClassNames, toggleClick }: NavLinkPro
   const router = useRouter();
   return (
     <Link href={`/${listItem}`}>
-      <p onClick={() => toggleClick()} className={`${menuItemClassNames} font-head text-3xl ${router.pathname === href ? 'text-yellow-400' : 'text-white'}`}>{listItem}</p>
+      {
+        toggleClick ?
+          <p onClick={() => toggleClick()} className={`${menuItemClassNames} font-head text-3xl cursor-pointer ${router.pathname === href ? 'text-yellow-400' : 'text-white'}`}>{listItem}</p>
+          :
+          <p className={`${menuItemClassNames} font-head text-3xl cursor-pointer ${router.pathname === href ? 'text-yellow-400' : 'text-white'}`}>{listItem}</p>
+      }
     </Link>
   )
 }
@@ -59,7 +64,6 @@ const Navbar = (props: any) => {
   }
 
   const handleClickOutside = (e: { target: any }) => {
-
     if (toggleContainer.current.contains(e.target)) {
       toggleClick();
     } else if (navbarCollapsedContainer.current && !navbarCollapsedContainer.current.contains(e.target)) {
@@ -69,14 +73,13 @@ const Navbar = (props: any) => {
 
   React.useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
-
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     }
   });
 
   return (
-    <div className="fixed w-full">
+    <div className="bg-black fixed w-full px-5">
       <div className="flex justify-between bg-black h-24 relative z-10">
         <Link href="/">
           <div className="flex text-white items-center ml-5 font-head text-4xl xl:text-5xl">
