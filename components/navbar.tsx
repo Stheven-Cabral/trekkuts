@@ -1,14 +1,56 @@
 import * as React from 'react'
 import NavbarToggle from '../components/svgs/navbar-toggle'
 import ScissorsIcon from '../components/svgs/scissors'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 let menuList: string[];
 menuList = ['about', 'services', 'shop', 'schedule'];
 
-const Navbar = () => {
+type NavListProps = {
+  menuClassNames: string;
+  menuItemClassNames: string;
+}
+
+type NavLinkProps = {
+  href: string;
+  listItem: string;
+  menuItemClassNames: string;
+}
+
+const NavLink = ({ href, listItem, menuItemClassNames }: NavLinkProps) => {
+  const router = useRouter();
+  console.log(router);
+  console.log(href)
+
+  return (
+    <Link href={`/${listItem}`}>
+      <p className={`${menuItemClassNames} font-head text-3xl ${router.pathname === href ? 'text-yellow-400' : 'text-white'}`}>{listItem}</p>
+    </Link>
+  )
+}
+
+const NavList = ({ menuClassNames, menuItemClassNames }: NavListProps) => {
+  return (
+    <div className={`${menuClassNames} flex items-center`}>
+      {
+        menuList.map((listItem, index) => {
+          return (
+            <NavLink key={index} href={`/${listItem}`} menuItemClassNames={menuItemClassNames} listItem={listItem} />
+          )
+        })
+      }
+    </div>
+  )
+}
+
+const Navbar = (props) => {
+  console.log(props);
   const [collapsed, setCollapse] = React.useState(false);
 
-  const toggleClick = () => { }
+  const toggleClick = () => {
+    setCollapse(!collapsed);
+  }
 
   return (
     <div className="fixed w-full">
@@ -17,19 +59,12 @@ const Navbar = () => {
           <p className="mr-1">Trek</p><ScissorsIcon /><p>uts</p>
         </div>
         <div className="flex items-center mr-5">
-          <NavbarToggle onClick={() => setCollapse(!collapsed)} />
+          <NavList menuClassNames="hidden xl:flex flex-row" menuItemClassNames="mx-3" />
+          <NavbarToggle onClick={() => toggleClick()} className="xl:hidden" />
         </div>
       </div>
       <div className={`bg-black xl:hidden ${collapsed ? 'block' : 'hidden'}`}>
-        <ul className="flex flex-col items-center text-white py-4">
-          {
-            menuList.map((listItem, index) => {
-              return (
-                <li key={index} className="mx-2 my-5 text-3xl font-head">{listItem}</li>
-              )
-            })
-          }
-        </ul>
+        <NavList menuClassNames="flex-col py-4" menuItemClassNames="mx-2 my-5" />
       </div>
     </div>
   )
