@@ -79,14 +79,14 @@ const Navbar = (props: any) => {
   });
 
   return (
-    <div className="bg-black fixed w-full px-5">
-      <div className="flex justify-between bg-black h-24 relative z-10">
+    <div className="fixed w-full">
+      <div className="flex justify-between bg-black h-24 relative z-10 px-10">
         <Link href="/">
-          <div className="flex text-white items-center ml-5 font-head text-4xl xl:text-5xl">
+          <div className="flex text-white items-center font-head text-4xl xl:text-5xl cursor-pointer">
             <p className="mr-1">Trek</p><ScissorsIcon /><p>uts</p>
           </div>
         </Link>
-        <div className="flex items-center mr-5">
+        <div className="flex items-center">
           <NavList menuClassNames="hidden xl:flex flex-row" menuItemClassNames="mx-3" />
           <div ref={toggleContainer}>
             <NavbarToggle className="xl:hidden" />
