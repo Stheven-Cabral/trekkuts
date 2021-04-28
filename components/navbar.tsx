@@ -53,7 +53,7 @@ const NavList = ({ menuClassNames, menuItemClassNames, toggleClick }: NavListPro
   )
 }
 
-const Navbar = (props: any) => {
+const Navbar = () => {
   const [collapsed, setCollapse] = React.useState(false);
 
   const navbarCollapsedContainer: React.Ref<HTMLDivElement> = React.useRef();
